@@ -1,0 +1,130 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+	xmlns:local="clr-namespace:MapPrintingControls"
+	xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+	<local:ToVisibilityConverter x:Key="toVisibility" />
+	<ControlTemplate x:Key="PageSymbolTemplate">
+		<Path x:Name="Element"
+		      Stroke="Blue"
+		      StrokeStartLineCap="Round"
+		      StrokeThickness="2.0"
+		      StrokeLineJoin="Round"
+		      StrokeEndLineCap="Round"
+		      Fill="#050000E0"
+		     >
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup x:Name="SelectionStates">
+					<VisualState x:Name="Unselected" />
+					<VisualState x:Name="Selected">
+						<Storyboard>
+							<ColorAnimationUsingKeyFrames Storyboard.TargetName="Element"
+							                              Storyboard.TargetProperty="(Path.Fill).(SolidColorBrush.Color)">
+								<DiscreteColorKeyFrame KeyTime="0:0:0" Value="#152000E0" />
+							</ColorAnimationUsingKeyFrames>
+							<ColorAnimationUsingKeyFrames Storyboard.TargetName="Element"
+							                              Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)">
+								<DiscreteColorKeyFrame KeyTime="0:0:0" Value="Cyan" />
+							</ColorAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="Element"
+							                               Storyboard.TargetProperty="(Path.StrokeThickness)">
+								<DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="4.0" />
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</VisualState>
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+		</Path>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="TextSymbolTemplate">
+		<Grid>
+			<local:CenteredContentControl x:Name="Element" Content="{Binding Attributes[Page]}" FontSize="{Binding Symbol.FontSize}" Foreground="{Binding Symbol.Foreground}" />
+		</Grid>
+	</ControlTemplate>
+
+	<Style TargetType="local:MapPrinter">
+		<Setter Property="Foreground" Value="#FF333333"/>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint=".7,1" StartPoint=".7,0">
+					<GradientStop Color="#FFFFFFFF" Offset="0"/>
+					<GradientStop Color="#FFF9FAFB" Offset="0.375"/>
+					<GradientStop Color="#FFE5E8EB" Offset="0.625"/>
+					<GradientStop Color="#FFCBD1D7" Offset="1"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="BorderBrush">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FFA3AEB9" Offset="0"/>
+					<GradientStop Color="#FF8399A9" Offset="0.375"/>
+					<GradientStop Color="#FF718597" Offset="0.375"/>
+					<GradientStop Color="#FF617584" Offset="1"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Height" Value="1050" />
+		<Setter Property="Width" Value="750" />
+
+        <Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapPrinter">
+					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0">
+						<Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" Margin="0">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition />
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+
+								<!-- Header -->
+								<StackPanel Background="{TemplateBinding Background}" Grid.Row="0" Grid.ColumnSpan="2">
+									<TextBlock Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center" FontSize="12" 
+									           Visibility="{Binding Title, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource toVisibility}}" />
+								</StackPanel>
+
+								<!-- Body-->
+								<Grid Grid.Row="1">
+									<!-- Map-->
+									<esri:Map x:Name="PrintMap" IsLogoVisible="False"
+									          local:SurrogateBinder.OverviewMapPrinter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+									          local:CloneMap.Map="{TemplateBinding Map}">
+										<local:PrintOverviewLayer>
+											<local:PrintOverviewLayer.TextSymbol>
+												<esri:TextSymbol ControlTemplate="{StaticResource TextSymbolTemplate}" Foreground="#800000FF" FontSize="72" />
+											</local:PrintOverviewLayer.TextSymbol>
+											<local:PrintOverviewLayer.PageFillSymbol>
+												<esri:SimpleFillSymbol ControlTemplate="{StaticResource PageSymbolTemplate}" />
+											</local:PrintOverviewLayer.PageFillSymbol>
+										</local:PrintOverviewLayer>
+									</esri:Map>
+
+									<!-- Scale Bar -->
+                                    <esri:ScaleLine Map="{Binding ElementName=PrintMap}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,10" Grid.Row="1"/>
+								</Grid>
+
+								<!-- Footer -->
+								<Grid Background="{TemplateBinding Background}" Grid.Row="2">
+									<TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+									           Text="{Binding Now, RelativeSource={RelativeSource TemplatedParent}, StringFormat='Printed {0:d} '}" />
+									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2"
+									           Text="{Binding Scale, RelativeSource={RelativeSource TemplatedParent}, StringFormat='1 : {0:F0} '}" />
+									<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+										<TextBlock Text="{Binding CurrentPage, RelativeSource={RelativeSource TemplatedParent}, StringFormat='Page {0} '}" />
+										<TextBlock Text="{Binding PageCount, RelativeSource={RelativeSource TemplatedParent}, StringFormat='/ {0}'}" />
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>
+

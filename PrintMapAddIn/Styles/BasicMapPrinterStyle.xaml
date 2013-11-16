@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+                    xmlns:mapPrinting="clr-namespace:MapPrintingControls;assembly=MapPrintingControls">
+
+    <!--  MAP ONLY style  -->
+    <Style x:Key="Basic" TargetType="mapPrinting:MapPrinter">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="mapPrinting:MapPrinter">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <!--  Print Map with cloned layers + PrintOverviewLayer (that won't be printed)  -->
+                            <esri:Map x:Name="PrintMap" IsLogoVisible="False"
+                                      mapPrinting:CloneMap.Map="{TemplateBinding Map}"
+                                      mapPrinting:SurrogateBinder.OverviewMapPrinter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                <mapPrinting:PrintOverviewLayer />
+                            </esri:Map>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

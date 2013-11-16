@@ -1,0 +1,339 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:PrintMapAddIn.Utils;assembly=PrintMapAddIn"
+                    xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+                    xmlns:mapPrinting="clr-namespace:MapPrintingControls;assembly=MapPrintingControls">
+    <mapPrinting:ToVisibilityConverter x:Key="ToVisibility" />
+
+    <Style x:Key="ScaleLineStyle" TargetType="esri:ScaleLine">
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="esri:ScaleLine">
+                    <Grid>
+                        <Grid.Resources>
+                            <converters:MultiplicationConverter x:Key="MultiplicationConverter" />
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!--  Kilometers  -->
+                        <Grid Width="{Binding MetricSize,
+                                              RelativeSource={RelativeSource TemplatedParent}}"
+                              Margin="10,0,4,0" HorizontalAlignment="Left"
+                              VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1*" MinHeight="3" />
+                                <RowDefinition Height="2*" MinHeight="6" />
+                            </Grid.RowDefinitions>
+                            <!--  Horizontal base line  -->
+                            <Rectangle Grid.Row="2" Grid.ColumnSpan="10"
+                                       Height="1" VerticalAlignment="Bottom"
+                                       Stroke="{TemplateBinding Foreground}" />
+
+                            <!--  Vertical notchs  -->
+                            <Rectangle Grid.Row="1" Grid.RowSpan="2"
+                                       Grid.Column="0" Width="1"
+                                       HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+                            <Border Grid.Row="2" Grid.Column="1"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="2"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="3"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="4"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Rectangle Grid.Row="1" Grid.RowSpan="2"
+                                       Grid.Column="5" Width="1"
+                                       HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+                            <Border Grid.Row="2" Grid.Column="6"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="7"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="8"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="2" Grid.Column="9"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Rectangle Grid.Row="1" Grid.RowSpan="2"
+                                       Grid.Column="9" Width="1"
+                                       HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+
+                            <!--  Values  -->
+                            <TextBlock Grid.Column="0" Width="100"
+                                       Margin="-50,2,-50,2" HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" Text="0"
+                                       TextAlignment="Center" />
+                            <TextBlock Grid.Column="2" Width="100"
+                                       Margin="-50,0,-50,0" HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding MetricValue,
+                                                      RelativeSource={RelativeSource TemplatedParent},
+                                                      Converter={StaticResource MultiplicationConverter},
+                                                      ConverterParameter=0.2}"
+                                       TextAlignment="Center" />
+                            <TextBlock Grid.Column="5" Width="100"
+                                       Margin="-50,0,-50,0" HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding MetricValue,
+                                                      RelativeSource={RelativeSource TemplatedParent},
+                                                      Converter={StaticResource MultiplicationConverter},
+                                                      ConverterParameter=0.5}"
+                                       TextAlignment="Center" />
+                            <TextBlock Grid.Column="9" Width="100"
+                                       Margin="-50,0,-50,0" HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding MetricValue,
+                                                      RelativeSource={RelativeSource TemplatedParent}}"
+                                       TextAlignment="Center" />
+                        </Grid>
+
+                        <!--  Units  -->
+                        <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding MetricUnit, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                        <!--  Miles  -->
+                        <Grid Grid.Row="1"
+                              Width="{Binding USSize,
+                                              RelativeSource={RelativeSource TemplatedParent}}"
+                              Margin="10,0,4,0" HorizontalAlignment="Left"
+                              VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" MinHeight="6" />
+                                <RowDefinition Height="1*" MinHeight="3" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--  Horizontal base line  -->
+                            <Rectangle Grid.Row="0" Grid.ColumnSpan="10"
+                                       Height="1" VerticalAlignment="Top"
+                                       Stroke="{TemplateBinding Foreground}" />
+
+                            <!--  Vertical notchs  -->
+                            <Rectangle Grid.Row="0" Grid.RowSpan="2"
+                                       Grid.Column="0" Width="1"
+                                       HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+                            <Border Grid.Row="0" Grid.Column="1"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="2"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="3"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="4"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Rectangle Grid.Row="0" Grid.RowSpan="2"
+                                       Grid.Column="5" Width="1"
+                                       HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+                            <Border Grid.Row="0" Grid.Column="6"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="7"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="8"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Border Grid.Row="0" Grid.Column="9"
+                                    Width="1" HorizontalAlignment="Left"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                                    BorderThickness="1" />
+                            <Rectangle Grid.Row="0" Grid.RowSpan="2"
+                                       Grid.Column="9" Width="1"
+                                       HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                       Stroke="{TemplateBinding Foreground}" />
+
+                            <!--  Values  -->
+                            <TextBlock Grid.Row="2" Grid.Column="0"
+                                       Width="100" Margin="-50,2,-50,2"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Text="0" TextAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="2"
+                                       Width="100" Margin="-50,0,-50,0"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Text="{Binding USValue,
+                                                      RelativeSource={RelativeSource TemplatedParent},
+                                                      Converter={StaticResource MultiplicationConverter},
+                                                      ConverterParameter=0.2}"
+                                       TextAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="5"
+                                       Width="100" Margin="-50,0,-50,0"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Text="{Binding USValue,
+                                                      RelativeSource={RelativeSource TemplatedParent},
+                                                      Converter={StaticResource MultiplicationConverter},
+                                                      ConverterParameter=0.5}"
+                                       TextAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="9"
+                                       Width="100" Margin="-50,0,-50,0"
+                                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Text="{Binding USValue,
+                                                      RelativeSource={RelativeSource TemplatedParent}}"
+                                       TextAlignment="Center" />
+                        </Grid>
+
+                        <!--  Units  -->
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   VerticalAlignment="Top"
+                                   Text="{Binding USUnit,
+                                                  RelativeSource={RelativeSource TemplatedParent}}" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="mapPrinting:MapPrinter">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="mapPrinting:MapPrinter">
+                    <Grid Background="{TemplateBinding Background}">
+
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Header  -->
+                            <TextBlock Grid.Row="0" Margin="0,10"
+                                       HorizontalAlignment="Center" FontSize="22"
+                                       Text="{Binding Title,
+                                                      RelativeSource={RelativeSource TemplatedParent}}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{Binding Title,
+                                                            RelativeSource={RelativeSource TemplatedParent},
+                                                            Converter={StaticResource ToVisibility}}" />
+
+                            <!--  Map  -->
+                            <Border Grid.Row="1"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="0">
+                                <esri:Map x:Name="PrintMap" IsLogoVisible="False"
+                                          mapPrinting:CloneMap.Map="{TemplateBinding Map}"
+                                          mapPrinting:SurrogateBinder.OverviewMapPrinter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                    <mapPrinting:PrintOverviewLayer />
+                                </esri:Map>
+                            </Border>
+
+                            <!--  Footer  -->
+                            <Grid Grid.Row="2" Margin="0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           FontSize="16"
+                                           Text="{Binding Now,
+                                                          RelativeSource={RelativeSource TemplatedParent},
+                                                          StringFormat='Printed {0:d} '}" />
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left"
+                                           VerticalAlignment="Center" FontSize="14"
+                                           Text="{Binding Scale,
+                                                          RelativeSource={RelativeSource TemplatedParent},
+                                                          StringFormat='1 : {0:F0} '}" />
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Right"
+                                            VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding CurrentPage, RelativeSource={RelativeSource TemplatedParent}, StringFormat='Page {0} '}" />
+                                    <TextBlock Text="{Binding PageCount, RelativeSource={RelativeSource TemplatedParent}, StringFormat='/ {0}'}" />
+                                </StackPanel>
+
+                                <!--  Scale Bar  -->
+                                <Grid x:Name="TargetWidthForScaleLine" Grid.Row="1" Grid.Column="1" />
+                                <esri:ScaleLine Grid.Row="1" Grid.Column="1"
+                                                Grid.ColumnSpan="2" Margin="0,5"
+                                                Map="{Binding ElementName=PrintMap}"
+                                                Style="{StaticResource ScaleLineStyle}"
+                                                TargetWidth="{Binding ActualWidth,
+                                                                      ElementName=TargetWidthForScaleLine}" />
+
+                                <!--  Attribution  -->
+                                <esri:Attribution Grid.Row="2" Grid.Column="1"
+                                                  Grid.ColumnSpan="2"
+                                                  Layers="{Binding Layers,
+                                                                   ElementName=PrintMap}" />
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+

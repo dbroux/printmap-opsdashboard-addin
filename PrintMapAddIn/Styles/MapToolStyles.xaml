@@ -1,0 +1,171 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hc="clr-namespace:ESRI.ArcGIS.AppCore.Infrastructure.Common;assembly=ESRI.ArcGIS.AppCore"
+                    xmlns:oi="clr-namespace:ESRI.ArcGIS.AppCore.Widgets.Infrastructure;assembly=ESRI.ArcGIS.AppCore.Widgets"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!--  Sizes  -->
+    <sys:Double x:Key="AddInSwitchButtonHeight">18</sys:Double>
+    <sys:Double x:Key="AddInMinButtonWidth">65</sys:Double>
+
+    <sys:Double x:Key="TouchAddInSwitchButtonHeight">22</sys:Double>
+    <sys:Double x:Key="TouchAddInMinButtonWidth">75</sys:Double>
+
+
+    <!--  Themed Button Style taking care on Touch Mode  -->
+    <Style x:Key="AddInButtonStyle" BasedOn="{StaticResource ThemedButtonStyle}" TargetType="Button">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="True">
+                <Setter Property="MinWidth" Value="{StaticResource TouchAddInMinButtonWidth}" />
+                <Setter Property="Padding" Value="5" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="False">
+                <Setter Property="MinWidth" Value="{StaticResource AddInMinButtonWidth}" />
+            </DataTrigger>
+        </Style.Triggers>
+        <Setter Property="Foreground" Value="{DynamicResource ThemedForegroundBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ThemedMediumTextSize}" />
+    </Style>
+
+    <Style x:Key="AddInImageButtonStyle" BasedOn="{StaticResource ThemedButtonStyle}" TargetType="Button" />
+
+    <Style x:Key="AddInCheckBoxStyle" BasedOn="{StaticResource ThemedNoAnimationCheckboxStyle}" TargetType="CheckBox">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="True">
+                <Setter Property="Padding" Value="5" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="False">
+                <Setter Property="Padding" Value="2" />
+            </DataTrigger>
+        </Style.Triggers>
+        <Setter Property="Foreground" Value="{DynamicResource ThemedForegroundBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ThemedTextSize}" />
+    </Style>
+
+    <Style x:Key="AddInSwitchButtonStyle" TargetType="{x:Type CheckBox}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="True">
+                <Setter Property="Height" Value="{StaticResource TouchAddInSwitchButtonHeight}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="False">
+                <Setter Property="Height" Value="{StaticResource AddInSwitchButtonHeight}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Theme, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=Light}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ThemedButtonBackgroundBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Theme, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=Medium}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ThemedBackgroundBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Theme, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=Dark}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ThemedButtonBackgroundBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Width" Value="48" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid>
+                        <Border x:Name="Border" BorderBrush="{DynamicResource ThemedButtonBorderBrush}" BorderThickness="1">
+                            <Grid Margin="1">
+                                <Border x:Name="Border2"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{DynamicResource ThemedButtonBorderBrush}"
+                                        BorderThickness="1" />
+                                <Border x:Name="OnBackground" Background="#CC1DA4E6">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="0" />
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="Slider" Background="{DynamicResource ThemedForegroundBrush}">
+                                <Border.RenderTransform>
+                                    <TranslateTransform X="0" />
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ThemedButtonHotBorderBrush}" />
+                            <Setter TargetName="Border2" Property="BorderBrush" Value="{DynamicResource ThemedButtonHotBorderBrush}" />
+                            <Setter TargetName="Border2" Property="Background" Value="{DynamicResource ThemedButtonHotBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="36" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="OnBackground" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="OnBackground" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddInComboBoxStyle" BasedOn="{StaticResource ThemedComboBoxStyle}" TargetType="ComboBox">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="True">
+                <Setter Property="Padding" Value="5" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TouchMode, Source={x:Static oi:AppSettings.Current}, Converter={hc:EqualityToBoolConverter}, ConverterParameter=true}" Value="False">
+                <Setter Property="Padding" Value="2" />
+            </DataTrigger>
+        </Style.Triggers>
+        <Setter Property="FontSize" Value="{DynamicResource ThemedTextSize}" />
+    </Style>
+
+    <Style x:Key="AddInTextBoxStyle" BasedOn="{StaticResource ThemedTextBoxStyle}" TargetType="TextBox">
+        <Setter Property="Foreground" Value="{DynamicResource ThemedForegroundBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ThemedTextSize}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="AddInMediumTextBlockStyle" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ThemedForegroundBrush}" />
+        <Setter Property="TextTrimming" Value="WordEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="FontSize" Value="{DynamicResource ThemedMediumTextSize}" />
+    </Style>
+
+    <Style x:Key="AddInTextBlockStyle" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ThemedForegroundBrush}" />
+        <Setter Property="TextTrimming" Value="WordEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="FontSize" Value="{DynamicResource ThemedTextSize}" />
+    </Style>
+
+
+    <Style x:Key="AddInBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource ThemedBackgroundBrush}" />
+    </Style>
+</ResourceDictionary>

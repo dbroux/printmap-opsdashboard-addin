@@ -1,0 +1,164 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+                    xmlns:mapPrinting="clr-namespace:MapPrintingControls;assembly=MapPrintingControls">
+    <mapPrinting:ToVisibilityConverter x:Key="toVisibility" />
+    <mapPrinting:ExpandConverter x:Key="expandConverter" />
+
+    <ControlTemplate x:Key="TextSymbolTemplate">
+        <Grid>
+            <mapPrinting:CenteredContentControl x:Name="Element"
+                                                Content="{Binding Attributes[Page]}"
+                                                FontSize="{Binding Symbol.FontSize}"
+                                                Foreground="{Binding Symbol.Foreground}" />
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="WithLegend" TargetType="mapPrinting:MapPrinter">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="mapPrinting:MapPrinter">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Header  -->
+                            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center" FontSize="14"
+                                       Text="{Binding Title,
+                                                      RelativeSource={RelativeSource TemplatedParent}}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{Binding Title,
+                                                            RelativeSource={RelativeSource TemplatedParent},
+                                                            Converter={StaticResource toVisibility}}" />
+
+                            <!--  Legend and overview  -->
+                            <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <StackPanel>
+                                    <!--  Legend  -->
+                                    <StackPanel>
+                                        <TextBlock HorizontalAlignment="Center" FontWeight="Bold" Text="Legend" />
+                                        <esri:Legend HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                                                     Background="{TemplateBinding Background}"
+                                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                                     Foreground="{TemplateBinding Foreground}"
+                                                     Map="{Binding ElementName=PrintMap}">
+                                            <esri:Legend.Template>
+                                                <!--  Change the legend style to avoid treeview 'collapse' button  -->
+                                                <ControlTemplate TargetType="{x:Type esri:Legend}">
+                                                    <ItemsControl BorderBrush="{TemplateBinding BorderBrush}"
+                                                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                                                  Foreground="{TemplateBinding Foreground}"
+                                                                  ItemsSource="{TemplateBinding LayerItemsSource}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Vertical">
+                                                                    <!--  Layer Item  -->
+                                                                    <TextBlock FontWeight="SemiBold" Text="{Binding Label}" />
+
+                                                                    <!--  Legend Items  -->
+                                                                    <ItemsControl ItemsSource="{Binding LegendItems}">
+                                                                        <ItemsControl.ItemTemplate>
+                                                                            <DataTemplate>
+                                                                                <StackPanel Orientation="Horizontal">
+                                                                                    <Image MinWidth="20" HorizontalAlignment="Center"
+                                                                                           VerticalAlignment="Center"
+                                                                                           Source="{Binding ImageSource}"
+                                                                                           Stretch="None" />
+                                                                                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Label}" />
+                                                                                </StackPanel>
+                                                                            </DataTemplate>
+                                                                        </ItemsControl.ItemTemplate>
+                                                                    </ItemsControl>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </ControlTemplate>
+                                            </esri:Legend.Template>
+                                        </esri:Legend>
+                                    </StackPanel>
+
+                                    <!--  Overview Map  -->
+                                    <StackPanel>
+                                        <TextBlock HorizontalAlignment="Center" FontWeight="Bold" Text="Overview" />
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <esri:Map Height="200" HorizontalAlignment="Stretch"
+                                                      IsLogoVisible="False" WrapAround="True"
+                                                      mapPrinting:SurrogateBinder.MapExtent="{Binding Layers[PrintOverviewLayer].FullExtent,
+                                                                                                      RelativeSource={RelativeSource Self},
+                                                                                                      Converter={StaticResource expandConverter},
+                                                                                                      ConverterParameter=1.2,
+                                                                                                      ConverterCulture=en}"
+                                                      mapPrinting:SurrogateBinder.OverviewMapPrinter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                                <esri:Map.Layers>
+                                                    <esri:ArcGISTiledMapServiceLayer Url="http://server.ArcGISOnline.com/ArcGIS/rest/services/World_Physical_Map/MapServer" />
+                                                    <mapPrinting:PrintOverviewLayer ExtentFillSymbol="{x:Null}" ID="PrintOverviewLayer" ShowPagesIfScaleNotFixed="True">
+                                                        <mapPrinting:PrintOverviewLayer.TextSymbol>
+                                                            <esri:TextSymbol ControlTemplate="{StaticResource TextSymbolTemplate}" FontSize="20" Foreground="#FF8080FF" />
+                                                        </mapPrinting:PrintOverviewLayer.TextSymbol>
+                                                    </mapPrinting:PrintOverviewLayer>
+                                                </esri:Map.Layers>
+                                            </esri:Map>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!--  Map  -->
+                            <Border Grid.Row="1" Grid.Column="1"
+                                    Margin="0"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid>
+                                    <esri:Map x:Name="PrintMap" IsLogoVisible="False"
+                                              mapPrinting:CloneMap.Map="{TemplateBinding Map}"
+                                              mapPrinting:SurrogateBinder.OverviewMapPrinter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                        <mapPrinting:PrintOverviewLayer>
+                                            <mapPrinting:PrintOverviewLayer.ExtentFillSymbol>
+                                                <esri:SimpleFillSymbol BorderBrush="Gray" BorderThickness="3" Fill="Transparent" />
+                                            </mapPrinting:PrintOverviewLayer.ExtentFillSymbol>
+                                        </mapPrinting:PrintOverviewLayer>
+                                    </esri:Map>
+                                    <!--  Scale Bar  -->
+                                    <esri:ScaleLine Margin="20,0,0,10" HorizontalAlignment="Left"
+                                                    VerticalAlignment="Bottom"
+                                                    Map="{Binding ElementName=PrintMap}" />
+                                </Grid>
+                            </Border>
+
+                            <!--  Footer  -->
+                            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding Now, RelativeSource={RelativeSource TemplatedParent}, StringFormat='Printed {0:d} '}" />
+                                <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
+                                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           Text="{Binding Scale,
+                                                          RelativeSource={RelativeSource TemplatedParent},
+                                                          StringFormat='1 : {0:F0} '}" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding CurrentPage, RelativeSource={RelativeSource TemplatedParent}, StringFormat='Page {0} '}" />
+                                    <TextBlock Text="{Binding PageCount, RelativeSource={RelativeSource TemplatedParent}, StringFormat='/ {0}'}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

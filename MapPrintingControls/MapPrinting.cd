@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.PrintOverviewLayer">
+    <Position X="6.5" Y="6.5" Width="2.25" />
+    <Members>
+      <Method Name="AddPages" Hidden="true" />
+      <Method Name="AddPrintExtent" Hidden="true" />
+      <Method Name="ChangeCurrentPage" Hidden="true" />
+      <Method Name="CreateControlTemplate" Hidden="true" />
+      <Method Name="MapPrinterPropertyChanged" Hidden="true" />
+      <Method Name="OnExtentFillSymbolChanged" Hidden="true" />
+      <Method Name="OnMapPrinterChanged" Hidden="true" />
+      <Method Name="OnPageFillSymbolChanged" Hidden="true" />
+      <Method Name="OnTextSymbolChanged" Hidden="true" />
+      <Field Name="pageSymbolTemplate" Hidden="true" />
+      <Property Name="PrintExtentGraphic" Hidden="true" />
+      <Field Name="textTemplate" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAQASAAAAAAAAAEAAAAsABCABAAAAAACgAikAABAQAI=</HashCode>
+      <FileName>PrintOverviewLayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MapPrinter" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.MapPrinterDialog">
+    <Position X="6.5" Y="4.25" Width="2" />
+    <Members>
+      <Method Name="OnMapPrinterChanged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAACAAAEAAAAAAA=</HashCode>
+      <FileName>MapPrinterDialog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MapPrinter" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.MapPrinter">
+    <Position X="3.5" Y="0.5" Width="1.75" />
+    <Members>
+      <Field Name="_dataItems" Hidden="true" />
+      <Field Name="_defineextentInstructions" Hidden="true" />
+      <Field Name="_draw" Hidden="true" />
+      <Field Name="_isCancelingPrint" Hidden="true" />
+      <Field Name="_isLoaded" Hidden="true" />
+      <Field Name="_isPrinting" Hidden="true" />
+      <Field Name="_oldMap" Hidden="true" />
+      <Field Name="_status" Hidden="true" />
+      <Field Name="_wasActive" Hidden="true" />
+      <Method Name="BeginPrint" Hidden="true" />
+      <Field Name="BeginStatus" Hidden="true" />
+      <Method Name="CanCancelPrint" Hidden="true" />
+      <Method Name="CancelPrint" Hidden="true" />
+      <Field Name="CancelStatus" Hidden="true" />
+      <Method Name="CanDefineExtent" Hidden="true" />
+      <Method Name="CanPrint" Hidden="true" />
+      <Method Name="ChangeExtentWhenRotated" Hidden="true" />
+      <Method Name="DefineExtent" Hidden="true" />
+      <Method Name="DrawDrawComplete" Hidden="true" />
+      <Method Name="EndPrint" Hidden="true" />
+      <Field Name="ErrorStatus" Hidden="true" />
+      <Field Name="FinishedStatus" Hidden="true" />
+      <Method Name="Layers_LayersInitialized" Hidden="true" />
+      <Method Name="NotifyPropertyChanged" Hidden="true" />
+      <Method Name="OnCurrentPageChanged" Hidden="true" />
+      <Method Name="OnIsActiveChanged" Hidden="true" />
+      <Method Name="OnIsScaleFixedChanged" Hidden="true" />
+      <Method Name="OnMapChanged" Hidden="true" />
+      <Method Name="OnPageChanged" Hidden="true" />
+      <Method Name="OnPrintExtentChanged" Hidden="true" />
+      <Method Name="OnPrintProgress" Hidden="true" />
+      <Method Name="OnRotateMapChanged" Hidden="true" />
+      <Method Name="OnScaleChanged" Hidden="true" />
+      <Method Name="PreparePages" Hidden="true" />
+      <Field Name="PreviewingStatus" Hidden="true" />
+      <Method Name="Print" Hidden="true" />
+      <Field Name="PrintingStatus" Hidden="true" />
+      <Property Name="PrintOverviewLayer" Hidden="true" />
+      <Method Name="ResetDefineExtent" Hidden="true" />
+      <Method Name="SetPrintableArea" Hidden="true" />
+      <Method Name="SetPrintMapExtent" Hidden="true" />
+      <Method Name="ThrowError" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>wmBBSAQkAFhACOBQMEuIAFaCwiCiImBNIQAGTBCGCEY=</HashCode>
+      <FileName>MapPrinter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_pages" />
+      <Property Name="DataItems" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.SurrogateBinder">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="LayersCollectionChanged" Hidden="true" />
+      <Method Name="OnMapExtentChanged" Hidden="true" />
+      <Method Name="OnOverviewMapPrinterChanged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAQAAAAAAAAAABEAAAQAAAAAAAAEiEAA=</HashCode>
+      <FileName>SurrogateBinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.MapPages">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <Members>
+      <Field Name="_nbColumn" Hidden="true" />
+      <Field Name="_pageExtentSize" Hidden="true" />
+      <Field Name="_topLeft" Hidden="true" />
+      <Field Name="degreeDist" Hidden="true" />
+      <Field Name="dpi" Hidden="true" />
+      <Field Name="earthRadius" Hidden="true" />
+      <Method Name="RatioScaleResolution" Hidden="true" />
+      <Field Name="toRadians" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AABQAgAAAoCAAAAAiEAAAAAAAAAAAAAAAAQAAAAABAA=</HashCode>
+      <FileName>MapPages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.CloneMap">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="ClearClonedLayers" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Field Name="ClonedProperty" Hidden="true" />
+      <Field Name="clonedTag" Hidden="true" />
+      <Method Name="OnMapChanged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAKAAAAAAAAAAEAAAACAAAAAAAEBAAAABA=</HashCode>
+      <FileName>CloneMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.DelegateCommand" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAMACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DelegateCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.ObservableDictionary&lt;TKey, TValue&gt;">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <Members>
+      <Method Name="GetKeyValuePair" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAIIAAAAAAAEAAAACAAABAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ObservableDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.MapPrinterIndicator">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="MapPrinterPrintProgress" Hidden="true" />
+      <Method Name="OnMapPrinterChanged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAgAABAAAAAAABACAAAEAAAAAAA=</HashCode>
+      <FileName>MapPrinterIndicator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MapPrinter" />
+      <Property Name="PrintProgress" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.PrintProgressEventArgs" Collapsed="true">
+    <Position X="0.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAEgAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapPrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.PageChangedEventArgs" Collapsed="true">
+    <Position X="0.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapPrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.ExceptionEventArgs" Collapsed="true">
+    <Position X="0.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>MapPrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.SilverlightPrintEngine">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <Members>
+      <Field Name="_currentPageIndex" Hidden="true" />
+      <Field Name="_firstPage" Hidden="true" />
+      <Field Name="_isPageInProgress" Hidden="true" />
+      <Field Name="_isPageReady" Hidden="true" />
+      <Field Name="_mapLoader" Hidden="true" />
+      <Field Name="_mapPrinter" Hidden="true" />
+      <Field Name="_pagesToPrint" Hidden="true" />
+      <Field Name="_tryCount" Hidden="true" />
+      <Method Name="BeginPrint" Hidden="true" />
+      <Method Name="EndPrint" Hidden="true" />
+      <Method Name="MapLoader_Loaded" Hidden="true" />
+      <Method Name="OnPrintProgress" Hidden="true" />
+      <Method Name="PrintMapProgress" Hidden="true" />
+      <Method Name="PrintPage" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EgAAAgEABADAACAAAAgAAFAAAQACAAAoAAAAAQAEBgA=</HashCode>
+      <FileName>WPF\WpfPrintEngine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.WPF.PrintPreviewWindow" Collapsed="true">
+    <Position X="9.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAIAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>WPF\PrintPreviewWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ESRI.ArcGIS.Client.Samples.MapPrinting.WPF.PrintDocumentViewer" Collapsed="true">
+    <Position X="9.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAIAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WPF\PrintDocumentViewer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
