@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 
 namespace PrintMapAddIn
 {
@@ -11,7 +10,7 @@ namespace PrintMapAddIn
 	/// </summary>
 	internal partial class EditStyleDialog : Window
 	{
-		private MapPrinterStyle _initialMapPrinterStyle;
+		private readonly MapPrinterStyle _initialMapPrinterStyle;
 		private readonly MapPrinterStyle _editedMapPrinterStyle;
 
 		public EditStyleDialog(MapPrinterStyle mapPrinterStyle)

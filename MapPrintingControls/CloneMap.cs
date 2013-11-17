@@ -89,7 +89,6 @@ namespace MapPrintingControls
 			map.MaximumResolution = mapToClone.MaximumResolution;
 			map.TimeExtent = mapToClone.TimeExtent;
 			map.UseAcceleratedDisplay = false; // not working with accelerated display due to custom symbols in PrintOverviewLayer
-			map.AcceleratedDisplay = mapToClone.AcceleratedDisplay;
 			map.Extent = mapToClone.Extent; // Init SR
 
 			map.WrapAround = mapToClone.WrapAround;

@@ -40,19 +40,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ESRI.ArcGIS.Client, Version=10.1.1.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Client, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.1.1\sdk\OperationsDashboard\ESRI.ArcGIS.Client.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.Client.Bing, Version=10.1.1.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Client.Bing, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.1.1\sdk\OperationsDashboard\ESRI.ArcGIS.Client.Bing.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.Client.Toolkit, Version=10.1.1.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.1.1\sdk\OperationsDashboard\ESRI.ArcGIS.Client.Toolkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationUI" />
@@ -60,7 +57,6 @@
     <Reference Include="System" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\..\..\..\..\..\Applications\depfiles\sharedlibs\ExpressionSDK\WPF\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />

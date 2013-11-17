@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using ESRI.ArcGIS.OperationsDashboard;
 using System.Windows;
 using System.Windows.Controls;
